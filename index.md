@@ -130,7 +130,7 @@ You can contact me for info about the dataset or if you want to contribute to th
        });
 
        sortedArrayOfMunicipio = arrayOfMunicipio.sort(function(a, b) {
-         return b.data - a.data;
+         return a.data - b.data;
        });
 
        sortedLocationsMunicipio = [];
@@ -148,7 +148,7 @@ You can contact me for info about the dataset or if you want to contribute to th
        });
 
        sortedArrayOfQuartiere = arrayOfQuartiere.sort(function(a, b) {
-         return b.data - a.data;
+         return a.data - b.data;
        });
 
        sortedLocationsQuartiere = [];
@@ -166,7 +166,7 @@ You can contact me for info about the dataset or if you want to contribute to th
        });
 
        sortedArrayOfZona = arrayOfZona.sort(function(a, b) {
-         return b.data - a.data;
+         return a.data - b.data;
        });
 
        sortedLocationsZona = [];
@@ -184,7 +184,7 @@ You can contact me for info about the dataset or if you want to contribute to th
        });
 
        sortedArrayOfSuburbio = arrayOfSuburbio.sort(function(a, b) {
-         return b.data - a.data;
+         return a.data - b.data;
        });
 
        sortedLocationsSuburbio = [];
