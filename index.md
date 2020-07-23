@@ -42,66 +42,71 @@ You can contact me for info about the dataset or if you want to contribute to th
 - [Twitter](https://twitter.com/mrsantoni)
 
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-   <script src="https://d3js.org/d3.v5.min.js"></script>
-   <script type="text/javascript">
-     function makeChart(lines) {
-       var routes = lines.map(function(d) {
-         return d.route_name;
-       });
-       var waitingTime = lines.map(function(d) {
-         return (d.waiting_time / 60);
-       });
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script type="text/javascript">
+  function makeChart(lines) {
+    var routes = lines.map(function(d) {
+      return d.route_name;
+    });
+    var waitingTime = lines.map(function(d) {
+      return (d.waiting_time / 60);
+    });
 
-       arrayOfObj = routes.map(function(d, i) {
-         return {
-           label: d,
-           data: waitingTime[i] || 0
-         };
-       });
+    arrayOfObj = routes.map(function(d, i) {
+      return {
+        label: d,
+        data: waitingTime[i] || 0
+      };
+    });
 
-       sortedArrayOfObj = arrayOfObj.sort(function(a, b) {
-         return b.data > a.data;
-       });
+    sortedArrayOfObj = arrayOfObj.sort(function(a, b) {
+      return b.data > a.data;
+    });
 
-       sortedRoutes = [];
-       sortedWaitingTime = [];
-       sortedArrayOfObj.forEach(function(d) {
-         sortedRoutes.push(d.label);
-         sortedWaitingTime.push(d.data);
-       });
+    sortedRoutes = [];
+    sortedWaitingTime = [];
+    sortedArrayOfObj.forEach(function(d) {
+      sortedRoutes.push(d.label);
+      sortedWaitingTime.push(d.data);
+    });
 
 
-       var chart = new Chart('chart', {
-         type: "horizontalBar",
-         options: {
-           maintainAspectRatio: false,
-           legend: {
-             display: false
-           },
-           scales: {
-             yAxes: [{
-               ticks: {
-                 autoSkip: true,
-                 maxTicksLimit: 40,
-               }
-             }],
-           }
-         },
-         data: {
-           labels: sortedRoutes,
-           datasets: [{
-             data: sortedWaitingTime,
-             borderColor: '#5bcdb4',
-             backgroundColor: '#5bcdb4',
-             borderWidth: 5
-           }]
-         },
-       });
-     }
+    var chart = new Chart('chart', {
+      type: "horizontalBar",
+      options: {
+        maintainAspectRatio: false,
+        legend: {
+          display: false
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 40,
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              stepSize: 2,
+            }
+          }],
+        }
+      },
+      data: {
+        labels: sortedRoutes,
+        datasets: [{
+          data: sortedWaitingTime,
+          borderColor: '#5bcdb4',
+          backgroundColor: '#5bcdb4',
+          borderWidth: 5
+        }]
+      },
+    });
+  }
 
-     // Request data using D3
-     d3
-       .csv("https://stops-feed-results.s3.amazonaws.com/average_waiting_time_minutes.csv")
-       .then(makeChart);
-   </script>
+  // Request data using D3
+  d3
+    .csv("https://stops-feed-results.s3.amazonaws.com/average_waiting_time_minutes.csv")
+    .then(makeChart);
+</script>
