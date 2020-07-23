@@ -36,6 +36,35 @@ On the X-axis we have the hour of the day (`13 = 13:00-13:59`). The lines repres
 
 This is the longest waiting time in minutes shown at a bus station.
 
+## Waiting times divided by Rome districts and neighborhoods
+
+This is the average by Quartiere (Neighborhood)
+
+   <div id="wrapper" style="height:480px; width:640px;">
+     <canvas id="averageByQuartiere"></canvas>
+   </div>
+   
+   
+This is the average by Municipio (District)
+
+   <div id="wrapper" style="height:480px; width:640px;">
+     <canvas id="averageByMunicipio"></canvas>
+   </div>
+   
+This is the average by Zona (Zone)  
+
+   <div id="wrapper" style="height:480px; width:640px;">
+     <canvas id="averageByZona"></canvas>
+   </div>
+   
+This is the average by Suburbio (Suburb)
+
+   <div id="wrapper" style="height:480px; width:640px;">
+     <canvas id="averageBySuburbio"></canvas>
+   </div>
+   
+   
+   
 ## Info
 
 You can contact me for info about the dataset or if you want to contribute to the reporting statistics.
@@ -45,38 +74,129 @@ You can contact me for info about the dataset or if you want to contribute to th
 - [Twitter](https://twitter.com/mrsantoni)
 
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-   <script src="https://d3js.org/d3.v5.min.js"></script>
-   <script type="text/javascript">
-     function makeChart(lines) {
-       var routes = lines.map(function(d) {
-         return d.route_name;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+ 
+  <script type="text/javascript">
+     function waitingTimeByLocation(locations) {
+       let municipioLabels = locations.map(function(d) {
+         if (d.location !== "" && d.location.includes("Municipio")) return d.location;
        });
-       var waitingTime = lines.map(function(d) {
-         return (d.waiting_time / 60);
+       let waitingTimeMunicipio = locations.map(function(d) {
+         if (d.location !== "" && d.location.includes("Municipio")) {
+           return (d._col1 / 60);
+         }
+       });
+       let zonaLabels = locations.map(function(d) {
+         if (d.location !== "" && d.location.includes("Zona")) return d.location;
+       });
+       let waitingTimeZona = locations.map(function(d) {
+         if (d.location !== "" && d.location.includes("Zona")) {
+           return (d._col1 / 60);
+         }
+       });
+       let quartiereLabels = locations.map(function(d) {
+         if (d.location !== "" && d.location.includes("Quartiere")) return d.location;
+       });
+       let waitingTimeQuartiere = locations.map(function(d) {
+         if (d.location !== "" && d.location.includes("Quartiere")) {
+           return (d._col1 / 60);
+         }
+       });
+       let suburbioLabels = locations.map(function(d) {
+         if (d.location !== "" && d.location.includes("Suburbio")) return d.location;
+       });
+       let waitingTimeSuburbio = locations.map(function(d) {
+         if (d.location !== "" && d.location.includes("Suburbio")) {
+           return (d._col1 / 60);
+         }
        });
 
-       arrayOfObj = routes.map(function(d, i) {
+
+       municipioLabels = municipioLabels.filter((e) => e !== undefined );
+       waitingTimeMunicipio = waitingTimeMunicipio.filter((e) => e !== undefined );
+       zonaLabels = zonaLabels.filter((e) => e !== undefined );
+       waitingTimeZona = waitingTimeZona.filter((e) => e !== undefined );
+       quartiereLabels = quartiereLabels.filter((e) => e !== undefined );
+       waitingTimeQuartiere = waitingTimeQuartiere.filter((e) => e !== undefined );
+       suburbioLabels = suburbioLabels.filter((e) => e !== undefined );
+       waitingTimeSuburbio = waitingTimeSuburbio.filter((e) => e !== undefined );
+
+       arrayOfMunicipio = municipioLabels.map(function(d, i) {
          return {
            label: d,
-           data: waitingTime[i] || 0
+           data: waitingTimeMunicipio[i] || 0
          };
        });
 
-       sortedArrayOfObj = arrayOfObj.sort(function(a, b) {
-         return b.data > a.data;
+       sortedArrayOfMunicipio = arrayOfMunicipio.sort(function(a, b) {
+         return b.data < a.data;
        });
 
-       sortedRoutes = [];
-       sortedWaitingTime = [];
-       sortedArrayOfObj.forEach(function(d) {
-         sortedRoutes.push(d.label);
-         sortedWaitingTime.push(d.data);
+       sortedLocationsMunicipio = [];
+       sortedWaitingTimeMunicipio = [];
+       sortedArrayOfMunicipio.forEach(function(d) {
+         sortedLocationsMunicipio.push(d.label);
+         sortedWaitingTimeMunicipio.push(d.data);
+       });
+
+       arrayOfQuartiere = quartiereLabels.map(function(d, i) {
+         return {
+           label: d,
+           data: waitingTimeQuartiere[i] || 0
+         };
+       });
+
+       sortedArrayOfQuartiere = arrayOfQuartiere.sort(function(a, b) {
+         return b.data < a.data;
+       });
+
+       sortedLocationsQuartiere = [];
+       sortedWaitingTimeQuartiere = [];
+       sortedArrayOfQuartiere.forEach(function(d) {
+         sortedLocationsQuartiere.push(d.label);
+         sortedWaitingTimeQuartiere.push(d.data);
+       });
+
+       arrayOfZona = zonaLabels.map(function(d, i) {
+         return {
+           label: d,
+           data: waitingTimeZona[i] || 0
+         };
+       });
+
+       sortedArrayOfZona = arrayOfZona.sort(function(a, b) {
+         return b.data < a.data;
+       });
+
+       sortedLocationsZona = [];
+       sortedWaitingTimeZona = [];
+       sortedArrayOfZona.forEach(function(d) {
+         sortedLocationsZona.push(d.label);
+         sortedWaitingTimeZona.push(d.data);
+       });
+
+       arrayOfSuburbio = suburbioLabels.map(function(d, i) {
+         return {
+           label: d,
+           data: waitingTimeSuburbio[i] || 0
+         };
+       });
+
+       sortedArrayOfSuburbio = arrayOfSuburbio.sort(function(a, b) {
+         return b.data < a.data;
+       });
+
+       sortedLocationsSuburbio = [];
+       sortedWaitingTimeSuburbio = [];
+       sortedArrayOfSuburbio.forEach(function(d) {
+         sortedLocationsSuburbio.push(d.label);
+         sortedWaitingTimeSuburbio.push(d.data);
        });
 
 
-       var chart = new Chart('chart', {
-         type: "horizontalBar",
+       var chart = new Chart('averageByMunicipio', {
+         type: 'bar',
          options: {
            maintainAspectRatio: false,
            legend: {
@@ -86,32 +206,109 @@ You can contact me for info about the dataset or if you want to contribute to th
              yAxes: [{
                ticks: {
                  autoSkip: true,
-                 maxTicksLimit: 40,
                }
              }],
-             xAxes: [{
-               ticks: {
-                 stepSize: 2,
-               }
-             }],
+             xAxes: [{}],
            }
          },
          data: {
-           labels: sortedRoutes,
+           labels: sortedLocationsMunicipio,
            datasets: [{
-             data: sortedWaitingTime,
+             data: sortedWaitingTimeMunicipio,
              borderColor: '#5bcdb4',
              backgroundColor: '#5bcdb4',
              borderWidth: 5
            }]
          },
        });
+
+       var chart = new Chart('averageByQuartiere', {
+         type: 'bar',
+         options: {
+           maintainAspectRatio: false,
+           legend: {
+             display: false
+           },
+           scales: {
+             yAxes: [{
+               ticks: {
+                 autoSkip: true,
+               }
+             }],
+             xAxes: [{}],
+           }
+         },
+         data: {
+           labels: sortedLocationsQuartiere,
+           datasets: [{
+             data: sortedWaitingTimeQuartiere,
+             borderColor: '#5bcdb4',
+             backgroundColor: '#5bcdb4',
+             borderWidth: 5
+           }]
+         },
+       });
+
+       var chart = new Chart('averageByZona', {
+         type: 'bar',
+         options: {
+           maintainAspectRatio: false,
+           legend: {
+             display: false
+           },
+           scales: {
+             yAxes: [{
+               ticks: {
+                 autoSkip: true,
+               }
+             }],
+             xAxes: [{}],
+           }
+         },
+         data: {
+           labels: sortedLocationsZona,
+           datasets: [{
+             data: sortedWaitingTimeZona,
+             borderColor: '#5bcdb4',
+             backgroundColor: '#5bcdb4',
+             borderWidth: 5
+           }]
+         },
+       });
+
+       var chart = new Chart('averageBySuburbio', {
+         type: 'bar',
+         options: {
+           maintainAspectRatio: false,
+           legend: {
+             display: false
+           },
+           scales: {
+             yAxes: [{
+               ticks: {
+                 autoSkip: true,
+               }
+             }],
+             xAxes: [{}],
+           }
+         },
+         data: {
+           labels: sortedLocationsSuburbio,
+           datasets: [{
+             data: sortedWaitingTimeSuburbio,
+             borderColor: '#5bcdb4',
+             backgroundColor: '#5bcdb4',
+             borderWidth: 5
+           }]
+         },
+       });
+
      }
 
      // Request data using D3
      d3
-       .csv("https://stops-feed-results.s3.amazonaws.com/average_waiting_time_minutes.csv")
-       .then(makeChart);
+       .csv("https://stops-feed-results.s3.amazonaws.com/average_waiting_by_location.csv")
+       .then(waitingTimeByLocation);
    </script>
 
 
