@@ -39,41 +39,45 @@ You can contact me for info about the dataset or if you want to contribute to th
 - [Twitter](https://twitter.com/mrsantoni)
 
 
-<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
 <script type="text/javascript">
-    window.onload = function() {
-        var dataPoints = [];
-	 
-        function getDataPointsFromCSV(csv) {
-            var dataPoints = csvLines = points = [];
-            csvLines = csv.split(/[\r?\n|\r|\n]+/);         
-		        
-            for (var i = 0; i < csvLines.length; i++)
-                if (csvLines[i].length > 0) {
-                    points = csvLines[i].split(",");
-                    dataPoints.push({ 
-                        x: parseFloat(points[0]), 
-                        y: parseFloat(points[1]) 		
-                    });
-                }
-            return dataPoints;
-        }
-	
-	$.get("https://canvasjs.com/services/data/datapoints.php?xstart=5&ystart=10&length=10&type=csv", function(data) {
-	    var chart = new CanvasJS.Chart("chartContainer", {
-	            Access-Control-Allow-Headers: *,
-		    title: {
-		         text: "Chart from CSV",
-		    },
-		    data: [{
-		         type: "line",
-		         dataPoints: getDataPointsFromCSV(data)
-		      }]
-	     });
-		
-	      chart.render();
+function makeChart(players) {
+  // players is an array of objects where each object is something like:
+  // {
+  //   "Name": "Steffi Graf",
+  //   "Weeks": "377",
+  //   "Gender": "Female"
+  // }
 
-	});
-  }
+  var playerLabels = players.map(function(d) {
+    return d.Name;
+  });
+  var weeksData = players.map(function(d) {
+    return +d.Weeks;
+  });
+
+  var chart = new Chart('chart', {
+    type: "horizontalBar",
+    options: {
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      }
+    },
+    data: {
+      labels: playerLabels,
+      datasets: [
+        {
+          data: weeksData
+        }
+      ]
+    }
+  });
+}
+
+// Request data using D3
+d3
+  .csv("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2814973/atp_wta.csv")
+  .then(makeChart);
 </script>
