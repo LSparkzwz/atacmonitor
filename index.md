@@ -45,14 +45,7 @@ You can contact me for info about the dataset or if you want to contribute to th
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script type="text/javascript">
-function makeChart(players) {
-  // players is an array of objects where each object is something like:
-  // {
-  //   "Name": "Steffi Graf",
-  //   "Weeks": "377",
-  //   "Gender": "Female"
-  // }
-
+function makeChart(lines) {
   var playerLabels = players.map(function(d) {
     return d.Name;
   });
@@ -81,6 +74,6 @@ function makeChart(players) {
 
 // Request data using D3
 d3
-  .csv("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2814973/atp_wta.csv")
+  .csv("https://stops-feed-results.s3.amazonaws.com/average_waiting_time_minutes.csv")
   .then(makeChart);
 </script>
