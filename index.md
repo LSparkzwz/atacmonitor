@@ -130,7 +130,7 @@ You can contact me for info about the dataset or if you want to contribute to th
        });
 
        sortedArrayOfMunicipio = arrayOfMunicipio.sort(function(a, b) {
-         return b.data < a.data;
+         return b.data - a.data;
        });
 
        sortedLocationsMunicipio = [];
@@ -341,7 +341,7 @@ You can contact me for info about the dataset or if you want to contribute to th
        });
 
        sortedArrayOfObj = arrayOfObj.sort(function(a, b) {
-         return b.data > a.data;
+         return b.data - a.data;
        });
 
        sortedRoutes = [];
