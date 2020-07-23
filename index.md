@@ -105,4 +105,3 @@ You can contact me for info about the dataset or if you want to contribute to th
        .csv("https://stops-feed-results.s3.amazonaws.com/average_waiting_time_minutes.csv")
        .then(makeChart);
    </script>
- </body>
