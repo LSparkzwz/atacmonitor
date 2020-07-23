@@ -62,6 +62,7 @@ You can contact me for info about the dataset or if you want to contribute to th
 	
 	$.get("https://canvasjs.com/services/data/datapoints.php?xstart=5&ystart=10&length=10&type=csv", function(data) {
 	    var chart = new CanvasJS.Chart("chartContainer", {
+	            Access-Control-Allow-Headers: *,
 		    title: {
 		         text: "Chart from CSV",
 		    },
