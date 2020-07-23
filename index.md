@@ -6,7 +6,7 @@ The dataset is based on the [Open Data](https://romamobilita.it/it/tecnologie/op
 
 We can see the distribution of waiting minutes for every bus line. Every bar in the chart represents a bus line. The length of the bar shows the average amount of minutes to wait.
 
-<iframe style="border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="640" height="480" src="https://charts.mongodb.com/charts-project-0-urdrh/embed/charts?id=45ebb281-e181-4c1f-9678-cb5b5fad1d24&tenant=b6ce3d2e-8588-4414-bc01-ab06e40b3635"></iframe>
+<div style="background: red;" width="640" height="480">Baba</div>
 
 Note that this average may under-estimate the real waiting time. If you are at a stop, but no bus is upcoming, there is no _expected waiting time_. This statistics only takes in account waiting time when a bus left the terminus and is actually driving to the station.
 
