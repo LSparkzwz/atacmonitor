@@ -29,7 +29,10 @@ On the X-axis we have the hour of the day (`13 = 13:00-13:59`). The lines repres
 
 ## Longest waiting time
 
-<iframe style="border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="640" height="480" src="https://charts.mongodb.com/charts-project-0-urdrh/embed/charts?id=dba11411-a162-47b6-be9a-d141602f372b&tenant=b6ce3d2e-8588-4414-bc01-ab06e40b3635"></iframe>
+<div style="width:640px; text-align: center; font-weight: bold;">Maximum waiting minutes</div>
+<div style="height:480px; width:640px; display: flex; align-items: center; justify-content: center; font-size: 245px; font-weight: bold;">
+   <div id="maxWaitingMinutes"></div>
+</div>
 
 This is the longest waiting time in minutes shown at a bus station.
 
@@ -109,4 +112,14 @@ You can contact me for info about the dataset or if you want to contribute to th
   d3
     .csv("https://stops-feed-results.s3.amazonaws.com/average_waiting_time_minutes.csv")
     .then(makeChart);
+</script>
+<script type="text/javascript">
+     function highestWaitingTime(waitingTime) {
+       console.log(waitingTime[0].waiting_time)
+     }
+
+
+     d3
+       .csv("https://stops-feed-results.s3.amazonaws.com/longest_waiting_time.csv")
+       .then(highestWaitingTime);
 </script>
