@@ -42,7 +42,7 @@ You can contact me for info about the dataset or if you want to contribute to th
 - [Twitter](https://twitter.com/mrsantoni)
 
 
-<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script type="text/javascript">
 function makeChart(players) {
