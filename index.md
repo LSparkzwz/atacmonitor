@@ -195,7 +195,7 @@ You can contact me for info about the dataset or if you want to contribute to th
        });
 
 
-       var chart = new Chart('averageByMunicipio', {
+       let municipio = new Chart('averageByMunicipio', {
          type: 'bar',
          options: {
            maintainAspectRatio: false,
@@ -222,7 +222,7 @@ You can contact me for info about the dataset or if you want to contribute to th
          },
        });
 
-       var chart = new Chart('averageByQuartiere', {
+       let quartiere = new Chart('averageByQuartiere', {
          type: 'bar',
          options: {
            maintainAspectRatio: false,
@@ -249,7 +249,7 @@ You can contact me for info about the dataset or if you want to contribute to th
          },
        });
 
-       var chart = new Chart('averageByZona', {
+       let zona = new Chart('averageByZona', {
          type: 'bar',
          options: {
            maintainAspectRatio: false,
@@ -276,7 +276,7 @@ You can contact me for info about the dataset or if you want to contribute to th
          },
        });
 
-       var chart = new Chart('averageBySuburbio', {
+       let suburbio = new Chart('averageBySuburbio', {
          type: 'bar',
          options: {
            maintainAspectRatio: false,
@@ -352,7 +352,7 @@ You can contact me for info about the dataset or if you want to contribute to th
        });
 
 
-       var chart = new Chart('averageByRoute', {
+       let chart = new Chart('averageByRoute', {
          type: "horizontalBar",
          options: {
            maintainAspectRatio: false,
