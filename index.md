@@ -6,7 +6,7 @@ The dataset is based on the [Open Data](https://romamobilita.it/it/tecnologie/op
 
 We can see the distribution of waiting minutes for every bus line. Every bar in the chart represents a bus line. The length of the bar shows the average amount of minutes to wait.
 
-<div id="wrapper">
+<div id="wrapper" style="height:640px; width:480px; background:#000000">
   <canvas id="chart"></canvas>
 </div>
 
