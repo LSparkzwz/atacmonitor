@@ -42,38 +42,48 @@ You can contact me for info about the dataset or if you want to contribute to th
 - [Twitter](https://twitter.com/mrsantoni)
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script type="text/javascript">
-function makeChart(lines) {
-  var playerLabels = players.map(function(d) {
-    return d.Name;
-  });
-  var weeksData = players.map(function(d) {
-    return +d.Weeks;
-  });
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+   <script src="https://d3js.org/d3.v5.min.js"></script>
+   <script type="text/javascript">
+     function makeChart(lines) {
+       var linesLabels = lines.map(function(d) {
+         return d.route_name;
+       });
+       var waitingTimeData = lines.map(function(d) {
+         return +d.waiting_time / 60;
+       });
 
-  var chart = new Chart('chart', {
-    type: "horizontalBar",
-    options: {
-      maintainAspectRatio: false,
-      legend: {
-        display: false
-      }
-    },
-    data: {
-      labels: playerLabels,
-      datasets: [
-        {
-          data: weeksData
-        }
-      ]
-    }
-  });
-}
+       var chart = new Chart('chart', {
+         type: "horizontalBar",
+         options: {
+           maintainAspectRatio: false,
+           legend: {
+             display: false
+           },
+           scales: {
+             yAxes: [{
+               ticks: {
+                 autoSkip: true,
+                 maxTicksLimit: 20,
+               }
+             }],
+           }
+         },
+         data: {
+           labels: linesLabels,
+           datasets: [{
+             data: waitingTimeData,
+             borderColor: '#5bcdb4',
+             backgroundColor: '#5bcdb4',
+             borderWidth: 2
+           }]
+         },
+       });
+     }
 
-// Request data using D3
-d3
-  .csv("https://stops-feed-results.s3.amazonaws.com/average_waiting_time_minutes.csv")
-  .then(makeChart);
-</script>
+     // Request data using D3
+     d3
+       .csv("https://stops-feed-results.s3.amazonaws.com/average_waiting_time_minutes.csv")
+       .then(makeChart);
+   </script>
+ </body>
